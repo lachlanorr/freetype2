@@ -165,7 +165,6 @@ option(FT_WITH_BZIP2 "Support bzip2 compressed fonts." OFF)
 option(FT_WITH_PNG "Support PNG compressed OpenType embedded bitmaps." OFF)
 option(FT_WITH_HARFBUZZ "Improve auto-hinting of OpenType fonts." OFF)
 
-
 # Disallow in-source builds
 if ("${CMAKE_BINARY_DIR}" STREQUAL "${CMAKE_SOURCE_DIR}")
   message(FATAL_ERROR
@@ -417,6 +416,10 @@ endif ()
 
 
 set(PKG_CONFIG_REQUIRED_PRIVATE "")
+
+if (BROTLI_INCLUDE_DIR)
+  target_include_directories(freetype PRIVATE ${BROTLI_INCLUDE_DIR})
+endif ()
 
 if (ZLIB_FOUND)
   target_link_libraries(freetype PRIVATE ${ZLIB_LIBRARIES})
